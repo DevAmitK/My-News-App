@@ -6,8 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiBuilder {
-
-
     fun provideApi() =
         Retrofit.Builder()
             .baseUrl("https://newsapi.org/v2/")

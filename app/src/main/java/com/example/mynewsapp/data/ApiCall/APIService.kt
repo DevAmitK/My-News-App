@@ -8,8 +8,8 @@ interface APIService {
 
     @GET("top-headlines")
     suspend fun getAllNews(
-        @Query("country") country: String = "us",
-        @Query("apiKey") apiKey: String = "a98b0bbe8caa4bcca2c845fd70aa9d58"
+        @Query("country") country: String? = "us",
+        @Query("apiKey") apiKey: String? = "a98b0bbe8caa4bcca2c845fd70aa9d58"
     ): NewsModel
 
 }
