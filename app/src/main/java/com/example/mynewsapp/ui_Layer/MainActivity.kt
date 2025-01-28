@@ -14,7 +14,6 @@ import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 class MainActivity : ComponentActivity() {
-    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         val viewModel by viewModels<ViewModel>()
