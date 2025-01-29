@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.mynewsapp.ui.theme.newsAppMainColour2
 import com.example.mynewsapp.ui.theme.newsAppMainColourLight
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
+import com.example.mynewsapp.ui_Layer.tab_Layout.TabLayout
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +84,7 @@ fun HomeScreen(viewModel: ViewModel) {
             }
         ) {
             Box(modifier = Modifier.padding(it)) {
-                NewsList(viewModel = viewModel)
+                TabLayout(viewModel = viewModel)
             }
         }
 

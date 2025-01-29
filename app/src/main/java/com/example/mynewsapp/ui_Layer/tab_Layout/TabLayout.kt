@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.mynewsapp.ui_Layer.Home_Screen.NewsList
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,17 +78,21 @@ fun TabLayout(viewModel: ViewModel) {
                         color = if (selectedTabIndex == index) tabItemsList[index].selectedColour
                         else tabItemsList[index].unselectedColour
                     )
-
                 }
-
             }
-
-
         }
 
         HorizontalPager(state = pageState) { index ->
             Box(modifier = Modifier.fillMaxSize()) {
-
+                var category = when(tabItemsList[index].title){
+                    "Tech" -> "technology"
+                    "Sports" -> "sports"
+                    else -> null
+                }
+                LaunchedEffect(key1 = Unit) {
+                    viewModel.getTopNews(category)
+                }
+                NewsList(viewModel = viewModel)
             }
 
         }

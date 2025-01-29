@@ -1,5 +1,6 @@
 package com.example.mynewsapp.ui_Layer.ViewModel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,9 +12,16 @@ class ViewModel : ViewModel() {
 
     var data = mutableStateOf<NewsModel?>(null)
 
-    init {
+    fun getTopNews(category : String?){
         viewModelScope.launch {
-            data.value = ApiBuilder.provideApi().getAllNews()
+            if (category == null){
+                data.value = ApiBuilder.provideApi().getTopHeadlines()
+                Log.d("DaTa", "getTopNews: null ${data.value}")
+            }else{
+                data.value = ApiBuilder.provideApi().getCategoryNews(category = "business")
+                Log.d("DaTa", "getTopNews:category ${data.value} ")
+
+            }
         }
     }
 
