@@ -1,6 +1,7 @@
 package com.example.mynewsapp.ui_Layer.Home_Screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,14 +25,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.compose.SubcomposeAsyncImage
 import com.example.mynewsapp.R
 import com.example.mynewsapp.ui.theme.newsAppSecondaryColour
+import com.example.mynewsapp.ui_Layer.News.SingleNews
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
+import com.example.mynewsapp.ui_Layer.navigation.SingleNewsRout
 
 @Composable
-fun NewsList(viewModel: ViewModel) {
+fun NewsList(viewModel: ViewModel,navController: NavController) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
@@ -48,7 +52,19 @@ fun NewsList(viewModel: ViewModel) {
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Row(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                navController.navigate(
+                                    SingleNewsRout(
+                                        title = news.title,
+                                        desp = news.content,
+                                        imageUrl = news.urlToImage,
+                                        dateAndTime = news.publishedAt,
+                                        newsUrl = news.url
+                                    )
+                                )
+                            }
                     ) {
                         Column(
                             modifier = Modifier
@@ -69,14 +85,15 @@ fun NewsList(viewModel: ViewModel) {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
+                                color = Color.Black,
                                 text = news.title ?: "No Title",
                                 fontFamily = FontFamily.Monospace,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 maxLines = 3
                             )
-                            
-                            Text(text = news.publishedAt, color = newsAppSecondaryColour)
+
+                            Text(text = viewModel.formatDate(news.publishedAt), color = newsAppSecondaryColour)
                         }
                     }
 

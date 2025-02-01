@@ -1,9 +1,8 @@
 package com.example.mynewsapp.data.ApiCall
 
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+
 
 object ApiBuilder {
     fun provideApi() =
@@ -12,6 +11,5 @@ object ApiBuilder {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(APIService::class.java)
-
 
 }

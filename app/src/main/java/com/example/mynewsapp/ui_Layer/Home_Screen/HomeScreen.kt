@@ -31,15 +31,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mynewsapp.ui.theme.newsAppMainColour2
-import com.example.mynewsapp.ui.theme.newsAppMainColourLight
+import androidx.navigation.NavController
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
 import com.example.mynewsapp.ui_Layer.tab_Layout.TabLayout
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: ViewModel) {
+fun HomeScreen(viewModel: ViewModel,navController: NavController) {
 
     val drawerState = rememberDrawerState(initialValue = Closed)
     val cc = rememberCoroutineScope()
@@ -57,7 +56,7 @@ fun HomeScreen(viewModel: ViewModel) {
             topBar = {
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = newsAppMainColour2
+                        containerColor = MaterialTheme.colorScheme.tertiary
                     ),
                     title = { Text(text = "News App", color = Color.Black) },
                     navigationIcon = {
@@ -84,7 +83,7 @@ fun HomeScreen(viewModel: ViewModel) {
             }
         ) {
             Box(modifier = Modifier.padding(it)) {
-                TabLayout(viewModel = viewModel)
+                TabLayout(viewModel = viewModel, navController =navController)
             }
         }
 
