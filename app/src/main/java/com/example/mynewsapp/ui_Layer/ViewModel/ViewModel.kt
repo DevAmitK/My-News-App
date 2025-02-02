@@ -13,13 +13,21 @@ import java.util.TimeZone
 
 class ViewModel : ViewModel() {
 
+
     var data = mutableStateOf<NewsModel?>(null)
+
+    init {
+        getTopNews(null)
+    }
 
     fun getTopNews(category : String?){
         viewModelScope.launch {
-                data.value = ApiBuilder.provideApi().getTopHeadlines()
+                data.value = ApiBuilder.provideApi().getTopHeadlines(category= category)
         }
     }
+
+
+
 
     fun formatDate(isoDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())

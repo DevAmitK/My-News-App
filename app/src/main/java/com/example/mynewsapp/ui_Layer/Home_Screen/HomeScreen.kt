@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
+import com.example.mynewsapp.ui_Layer.navigation.ScScreenRout
 import com.example.mynewsapp.ui_Layer.tab_Layout.TabLayout
 import kotlinx.coroutines.launch
 
@@ -50,7 +51,6 @@ fun HomeScreen(viewModel: ViewModel,navController: NavController) {
             //DRAWER SCREEN
             ModalDrawerSheet { DrawerUi() }
         }) {
-        // HOME SCREEN
         Scaffold(
             containerColor = MaterialTheme.colorScheme.primary,
             topBar = {
@@ -73,7 +73,9 @@ fun HomeScreen(viewModel: ViewModel,navController: NavController) {
                         }
                     },
                     actions = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = {
+                            navController.navigate(ScScreenRout)
+                        }) {
                             Icon(imageVector = Icons.Default.Search, contentDescription = null,
                                 tint = Color.Black,
                                 modifier = Modifier.size(35.dp))
@@ -83,7 +85,8 @@ fun HomeScreen(viewModel: ViewModel,navController: NavController) {
             }
         ) {
             Box(modifier = Modifier.padding(it)) {
-                TabLayout(viewModel = viewModel, navController =navController)
+               // NewTabLayout(viewModel)
+                TabLayout(viewModel,navController)
             }
         }
 

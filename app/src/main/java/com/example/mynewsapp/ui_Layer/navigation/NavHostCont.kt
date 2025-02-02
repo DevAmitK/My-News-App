@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.mynewsapp.ui_Layer.Home_Screen.HomeScreen
 import com.example.mynewsapp.ui_Layer.News.SingleNews
+import com.example.mynewsapp.ui_Layer.Search.sc
 import com.example.mynewsapp.ui_Layer.ViewModel.ViewModel
 
 @Composable
@@ -28,6 +29,10 @@ fun NavHostController(viewModel: ViewModel) {
                 navController = navController
             )
 
+        }
+
+        composable<ScScreenRout> {
+            sc()
         }
 
 

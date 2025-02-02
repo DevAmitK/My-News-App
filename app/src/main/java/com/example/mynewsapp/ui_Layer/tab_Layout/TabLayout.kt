@@ -1,5 +1,6 @@
 package com.example.mynewsapp.ui_Layer.tab_Layout
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -47,6 +49,31 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                 selectedColour = Color.Black,
                 unselectedColour = Color.White
             ),
+            TabItem(
+                title = "Health",
+                selectedColour = Color.Black,
+                unselectedColour = Color.White
+            ),
+            TabItem(
+                title = "Science",
+                selectedColour = Color.Black,
+                unselectedColour = Color.White
+            ),
+            TabItem(
+                title = "Gaming",
+                selectedColour = Color.Black,
+                unselectedColour = Color.White
+            ),
+            TabItem(
+                title = "Entertainment",
+                selectedColour = Color.Black,
+                unselectedColour = Color.White
+            ),
+            TabItem(
+                title = "Business",
+                selectedColour = Color.Black,
+                unselectedColour = Color.White
+            ),
 
             )
     var selectedTabIndex by remember { mutableIntStateOf(0) }
@@ -67,7 +94,7 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        TabRow(
+        ScrollableTabRow(
             modifier = Modifier.height(50.dp),
             containerColor = MaterialTheme.colorScheme.secondary,
             selectedTabIndex = selectedTabIndex,
@@ -77,7 +104,21 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
             tabItemsList.forEachIndexed { index, tabItem ->
 
                 Tab(selected = selectedTabIndex == index,
-                    onClick = { selectedTabIndex = index }
+                    onClick = {
+                        selectedTabIndex = index
+                        val category = when (tabItem.title) {
+                            "Tech" -> "technology"
+                            "Sports" -> "sports"
+                            "Business" -> "business"
+                            "Entertainment" -> "entertainment"
+                            "Gaming" -> "gaming"
+                            "Health" -> "health"
+                            "Science" -> "science"
+                            else -> null
+                        }
+                        viewModel.data.value = null
+                        viewModel.getTopNews(category)
+                    }
                 ) {
                     Text(
                         text = "${tabItemsList[index].title}",
@@ -86,19 +127,13 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                     )
                 }
             }
+
         }
 
         HorizontalPager(state = pageState) { index ->
             Box(modifier = Modifier.fillMaxSize()) {
-                var category = when(tabItemsList[index].title){
-                    "Tech" -> "technology"
-                    "Sports" -> "sports"
-                    else -> null
-                }
-                LaunchedEffect(key1 = Unit) {
-                    viewModel.getTopNews(category)
-                }
                 NewsList(viewModel = viewModel, navController = navController)
+
             }
 
         }

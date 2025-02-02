@@ -38,6 +38,15 @@ import com.example.mynewsapp.ui_Layer.navigation.SingleNewsRout
 fun NewsList(viewModel: ViewModel,navController: NavController) {
 
     Box(modifier = Modifier.fillMaxSize()) {
+        if (viewModel.data.value == null){
+            Column(modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center){
+                CircularProgressIndicator(
+                    color = Color.Blue
+                )
+            }
+        }
         LazyColumn {
             if (viewModel.data.value != null) {
                 items(viewModel.data.value!!.articles) { news ->
