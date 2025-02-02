@@ -1,17 +1,18 @@
 package com.example.mynewsapp.ui_Layer.tab_Layout
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -81,12 +82,12 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
 
     LaunchedEffect(selectedTabIndex) {
         pageState.animateScrollToPage(selectedTabIndex)
+
     }
 
     LaunchedEffect(pageState.currentPage,pageState.isScrollInProgress) {
         if (!pageState.isScrollInProgress){
             selectedTabIndex = pageState.currentPage
-
         }
     }
 
@@ -106,7 +107,7 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                 Tab(selected = selectedTabIndex == index,
                     onClick = {
                         selectedTabIndex = index
-                        val category = when (tabItem.title) {
+                        val category = when (tabItemsList[index].title) {
                             "Tech" -> "technology"
                             "Sports" -> "sports"
                             "Business" -> "business"
@@ -117,8 +118,7 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                             else -> null
                         }
                         viewModel.data.value = null
-                        viewModel.getTopNews(category)
-                    }
+                        viewModel.getTopNews(category,null)                    }
                 ) {
                     Text(
                         text = "${tabItemsList[index].title}",
@@ -131,8 +131,19 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
         }
 
         HorizontalPager(state = pageState) { index ->
+
             Box(modifier = Modifier.fillMaxSize()) {
-                NewsList(viewModel = viewModel, navController = navController)
+
+                if (viewModel.data.value == null){
+                    Column(modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center){
+                        CircularProgressIndicator(
+                            color = Color.Blue
+                        )
+                    }
+                }
+                NewsList(data = viewModel.data.value, navController = navController)
 
             }
 

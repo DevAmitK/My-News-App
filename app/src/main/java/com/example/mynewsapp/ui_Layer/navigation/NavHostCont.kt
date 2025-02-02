@@ -32,7 +32,7 @@ fun NavHostController(viewModel: ViewModel) {
         }
 
         composable<ScScreenRout> {
-            sc()
+            sc(navController = navController,viewModel)
         }
 
 

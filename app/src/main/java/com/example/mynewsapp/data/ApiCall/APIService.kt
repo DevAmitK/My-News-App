@@ -10,7 +10,14 @@ interface APIService {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
         @Query("country") country: String = "us",
-        @Query("apiKey") apiKey: String = "a98b0bbe8caa4bcca2c845fd70aa9d58"
+        @Query("category") category: String?,
+        @Query("apiKey") apiKey: String = API_KEY
+    ): NewsModel
+
+    @GET("everything")
+    suspend fun getEverything(
+        @Query("q") q: String ="Android",
+        @Query("apiKey") apiKey: String = API_KEY
     ): NewsModel
 
 }
