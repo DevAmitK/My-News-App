@@ -15,18 +15,29 @@ class ViewModel : ViewModel() {
 
 
     var data = mutableStateOf<NewsModel?>(null)
+    var searchData = mutableStateOf<NewsModel?>(null)
 
     init {
-        getTopNews(null)
+        getTopNews(null,null)
     }
 
-    fun getTopNews(category : String?){
-        viewModelScope.launch {
-                data.value = ApiBuilder.provideApi().getTopHeadlines(category= category)
+    fun getTopNews(category : String?, q : String?) {
+        Log.d("category", "getTopNews: $category")
+
+        if (!q.isNullOrEmpty()) {
+            viewModelScope.launch {
+               searchData.value = ApiBuilder.provideApi().getEverything(q=q)
+
+            }
+        } else {
+            viewModelScope.launch {
+                data.value = ApiBuilder.provideApi().getTopHeadlines(category = category)
+            }
+
+
         }
+
     }
-
-
 
 
     fun formatDate(isoDate: String): String {

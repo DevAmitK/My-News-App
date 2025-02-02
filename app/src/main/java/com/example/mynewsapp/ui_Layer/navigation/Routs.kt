@@ -7,6 +7,9 @@ import kotlinx.serialization.Serializable
 object HomeScreenRout
 
 @Serializable
+object ScScreenRout
+
+@Serializable
 data class SingleNewsRout(
     val title : String,
     val desp : String?,
