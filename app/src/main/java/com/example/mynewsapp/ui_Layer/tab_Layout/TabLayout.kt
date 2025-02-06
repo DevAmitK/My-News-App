@@ -1,6 +1,5 @@
 package com.example.mynewsapp.ui_Layer.tab_Layout
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,12 +81,24 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
 
     LaunchedEffect(selectedTabIndex) {
         pageState.animateScrollToPage(selectedTabIndex)
-
     }
 
     LaunchedEffect(pageState.currentPage,pageState.isScrollInProgress) {
         if (!pageState.isScrollInProgress){
             selectedTabIndex = pageState.currentPage
+            val category = when (tabItemsList[selectedTabIndex].title) {
+                "Tech" -> "technology"
+                "Sports" -> "sports"
+                "Business" -> "business"
+                "Entertainment" -> "entertainment"
+                "Gaming" -> "gaming"
+                "Health" -> "health"
+                "Science" -> "science"
+                else -> null
+            }
+            viewModel.data.value = null
+            viewModel.getTopNews(category,null)
+
         }
     }
 
@@ -107,18 +118,7 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                 Tab(selected = selectedTabIndex == index,
                     onClick = {
                         selectedTabIndex = index
-                        val category = when (tabItemsList[index].title) {
-                            "Tech" -> "technology"
-                            "Sports" -> "sports"
-                            "Business" -> "business"
-                            "Entertainment" -> "entertainment"
-                            "Gaming" -> "gaming"
-                            "Health" -> "health"
-                            "Science" -> "science"
-                            else -> null
-                        }
-                        viewModel.data.value = null
-                        viewModel.getTopNews(category,null)                    }
+                    }
                 ) {
                     Text(
                         text = "${tabItemsList[index].title}",
@@ -131,7 +131,6 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
         }
 
         HorizontalPager(state = pageState) { index ->
-
             Box(modifier = Modifier.fillMaxSize()) {
 
                 if (viewModel.data.value == null){
