@@ -49,6 +49,7 @@ The **News App** is a sleek and fast application that fetches the latest news ac
   <img src="https://github.com/DevAmitK/My-News-App/blob/master/Screenshots/image2.jpg" width="200" />
   <img src="https://github.com/DevAmitK/My-News-App/blob/master/Screenshots/image1.jpg" width="200" />
   <img src="https://github.com/DevAmitK/My-News-App/blob/master/Screenshots/image.jpg" width="200" />
+  <img src="https://github.com/DevAmitK/My-News-App/blob/master/Screenshots/image3.jpg" width="200" />
 </p>  
 ## 🚀 Installation  
 
