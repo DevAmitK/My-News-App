@@ -45,10 +45,12 @@ The **News App** is a sleek and fast application that fetches the latest news ac
 ---
 
 
-🔮 Future Enhancements
+## 🔮 Future Enhancements
 
 🔹**Avoid Multiple API Calls:** Implement caching to store data and prevent redundant API requests when switching tabs.
+
 🔹 **Network State Handling:** Display an offline message when the internet is unavailable and provide a retry option.
+
 🔹 **Send News via WhatsApp:** Share news articles directly via WhatsApp or other social media platforms.
 
 ----
