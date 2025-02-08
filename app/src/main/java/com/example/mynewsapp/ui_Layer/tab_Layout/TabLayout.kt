@@ -86,18 +86,6 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
     LaunchedEffect(pageState.currentPage,pageState.isScrollInProgress) {
         if (!pageState.isScrollInProgress){
             selectedTabIndex = pageState.currentPage
-            val category = when (tabItemsList[selectedTabIndex].title) {
-                "Tech" -> "technology"
-                "Sports" -> "sports"
-                "Business" -> "business"
-                "Entertainment" -> "entertainment"
-                "Gaming" -> "gaming"
-                "Health" -> "health"
-                "Science" -> "science"
-                else -> null
-            }
-            viewModel.data.value = null
-            viewModel.getTopNews(category,null)
 
         }
     }
@@ -118,6 +106,18 @@ fun TabLayout(viewModel: ViewModel,navController: NavController) {
                 Tab(selected = selectedTabIndex == index,
                     onClick = {
                         selectedTabIndex = index
+                        val category = when (tabItemsList[selectedTabIndex].title) {
+                            "Tech" -> "technology"
+                            "Sports" -> "sports"
+                            "Business" -> "business"
+                            "Entertainment" -> "entertainment"
+                            "Gaming" -> "gaming"
+                            "Health" -> "health"
+                            "Science" -> "science"
+                            else -> null
+                        }
+                        viewModel.data.value = null
+                        viewModel.getTopNews(category,null)
                     }
                 ) {
                     Text(
